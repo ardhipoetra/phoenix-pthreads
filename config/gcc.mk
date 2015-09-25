@@ -31,7 +31,7 @@ CC = gcc
 AR = ar
 RANLIB = ranlib
 
-CFLAGS = -Wall -O3
+CFLAGS = -Wall -O3 -DNODPRINTF
 LIBS = -pthread
 
 INC_DIR = include
