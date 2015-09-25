@@ -28,10 +28,8 @@
 PHOENIXHOME = .
 
 ifndef CONFIG
-	echo "[ no CONFIG specified, use gcc by default ]"
-	CONFIG = gcc    # by default
+	CONFIG = gcc
 endif
-
 include $(PHOENIXHOME)/config/$(CONFIG).mk
 
 .PHONY: default all clean
