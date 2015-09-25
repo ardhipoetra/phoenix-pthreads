@@ -1,0 +1,20 @@
+syntax: glob
+
+.idea/
+build/*
+tmp/*
+*/input/*
+
+*.bc
+*.ll
+*.d
+*.o
+*.so
+
+*.out
+*.asm
+*.exe
+*.a
+
+*.log
+*.err
