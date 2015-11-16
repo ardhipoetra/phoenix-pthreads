@@ -443,7 +443,7 @@ int main(int argc, char *argv[]) {
 
    gettimeofday(&endtime,0);
 
-   printf("Word Count: Completed %ld\n",(endtime.tv_sec - starttime.tv_sec));
+   dprintf("Word Count: Completed %ld\n",(endtime.tv_sec - starttime.tv_sec));
 
    gettimeofday(&starttime,0);
 

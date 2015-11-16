@@ -6,7 +6,7 @@
 
 set -x #echo on
 
-declare -a benchmarks=("histogram" "linear_regression" "string_match" "word_count" "word_count_nosharing")
+declare -a benchmarks=("histogram" "linear_regression" "string_match" "word_count")
 
 for bmidx in "${!benchmarks[@]}"; do
   bm="${benchmarks[$bmidx]}"
