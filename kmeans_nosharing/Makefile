@@ -25,7 +25,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #------------------------------------------------------------------------------ 
 
-PROG= kmeans
+PROG= kmeans_nosharing
 SRC = kmeans-pthread-racefree
 
 OBJ = $(addsuffix .o, $(SRC))

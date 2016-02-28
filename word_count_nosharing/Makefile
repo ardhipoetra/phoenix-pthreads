@@ -25,7 +25,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #------------------------------------------------------------------------------ 
 
-PROG= word_count
+PROG= word_count_nosharing
 SRC = word_count-pthread-nofalsesharing sort-pthread
 
 OBJ = $(addsuffix .o, $(SRC))
