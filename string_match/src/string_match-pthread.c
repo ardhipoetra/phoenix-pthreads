@@ -299,7 +299,7 @@ int main(int argc, char *argv[]) {
     CHECK_ERROR(fstat(fd_keys, &finfo_keys) < 0);
     // Memory map the file
     CHECK_ERROR((fdata_keys= mmap(0, finfo_keys.st_size + 1,
-        PROT_READ | PROT_WRITE, MAP_PRIVATE, fd_keys, 0)) == NULL);
+        PROT_READ, MAP_PRIVATE, fd_keys, 0)) == NULL);
 
     // Setup splitter args
 

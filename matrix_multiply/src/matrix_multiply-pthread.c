@@ -257,7 +257,7 @@ int main(int argc, char *argv[]) {
 
     // Memory map the file
     CHECK_ERROR((fdata_A= mmap(0, file_size + 1,
-        PROT_READ | PROT_WRITE, MAP_PRIVATE, fd_A, 0)) == NULL);
+        PROT_READ, MAP_PRIVATE, fd_A, 0)) == NULL);
 
     // Read in the file
     CHECK_ERROR((fd_B = open(fname_B,O_RDONLY)) < 0);
@@ -265,7 +265,7 @@ int main(int argc, char *argv[]) {
     CHECK_ERROR(fstat(fd_B, &finfo_B) < 0);
     // Memory map the file
     CHECK_ERROR((fdata_B= mmap(0, file_size + 1,
-        PROT_READ | PROT_WRITE, MAP_PRIVATE, fd_B, 0)) == NULL);
+        PROT_READ, MAP_PRIVATE, fd_B, 0)) == NULL);
 
     // Setup splitter args
     mm_data_t mm_data;

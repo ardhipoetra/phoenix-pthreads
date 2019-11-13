@@ -416,7 +416,7 @@ int main(int argc, char *argv[]) {
    printf("Wordcount: Running...\n");
    
    // Read in the file
-   CHECK_ERROR((fd = open(fname, O_RDONLY)) < 0);
+   CHECK_ERROR((fd = open(fname, O_RDWR)) < 0);
    // Get the file info (for file length)
    CHECK_ERROR(fstat(fd, &finfo) < 0);
    // Memory map the file

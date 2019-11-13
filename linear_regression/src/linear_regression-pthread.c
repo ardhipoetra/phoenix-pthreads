@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
    CHECK_ERROR(fstat(fd, &finfo) < 0);
    // Memory map the file
    CHECK_ERROR((fdata = mmap(0, finfo.st_size + 1, 
-      PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == NULL);
+      PROT_READ, MAP_PRIVATE, fd, 0)) == NULL);
 
 // Dmitrii Kuvaiskii: limit num of CPUs to 2 for fault injection exps
 #ifdef FAULTINJECTION
