@@ -244,17 +244,16 @@ void *string_match_map(void *args)
      {
 		compute_hashes(cur_word, cur_word_final);
 
-	    if(!strcmp(key1_final, cur_word_final))
-		    printf("FOUND: WORD IS %s\n", cur_word);
-
-	    if(!strcmp(key2_final, cur_word_final))
-		    printf("FOUND: WORD IS %s\n", cur_word);
-
-	    if(!strcmp(key3_final, cur_word_final))
-		    printf("FOUND: WORD IS %s\n", cur_word);
-
-	    if(!strcmp(key4_final, cur_word_final))
-		    printf("FOUND: WORD IS %s\n", cur_word);
+        if(getenv("STRING_PRINT")) {
+            if(!strcmp(key1_final, cur_word_final))
+		        printf("FOUND: WORD IS %s\n", cur_word);
+            if(!strcmp(key2_final, cur_word_final))
+                printf("FOUND: WORD IS %s\n", cur_word);
+            if(!strcmp(key3_final, cur_word_final))
+                printf("FOUND: WORD IS %s\n", cur_word);
+            if(!strcmp(key4_final, cur_word_final))
+                printf("FOUND: WORD IS %s\n", cur_word);
+        }	    
 
 		key_file = key_file + key_len;
 		bzero(cur_word,MAX_REC_LEN);
@@ -271,6 +270,9 @@ int main(int argc, char *argv[]) {
     char *fdata_keys;
     struct stat finfo_keys;
     char *fname_keys;
+
+    struct timeval start, end;
+    long secs_used,micros_used;
 
 	 /* Option to provide the encrypted words in a file as opposed to source code */
     //fname_encrypt = "encrypt.txt";
@@ -317,6 +319,7 @@ int main(int argc, char *argv[]) {
     //str_data.encrypt_file  = ((char *)fdata_encrypt);     
 
     printf("String Match: Calling Serial String Match\n");
+    gettimeofday(&start, NULL);
 
     gettimeofday(&starttime,0);
     string_match_splitter(&str_data);
@@ -326,6 +329,12 @@ int main(int argc, char *argv[]) {
     printf("String Match: Completed %ld\n",(endtime.tv_sec - starttime.tv_sec));
 #endif
 
+    gettimeofday(&end, NULL);
+
+    secs_used=(end.tv_sec - start.tv_sec);
+    micros_used= ((secs_used*1000000) + end.tv_usec) - (start.tv_usec);
+
+    printf("elapsed time: %ld\n",micros_used);
     /*CHECK_ERROR(munmap(fdata_encrypt, finfo_encrypt.st_size + 1) < 0);
     CHECK_ERROR(close(fd_encrypt) < 0);*/
 

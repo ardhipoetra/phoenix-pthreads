@@ -402,6 +402,8 @@ int main(int argc, char *argv[]) {
    char * fname, * disp_num_str;
 
    struct timeval starttime,endtime;
+   struct timeval start, end;
+   long secs_used,micros_used; 
 
    // Make sure a filename is specified
    if (argv[1] == NULL)
@@ -435,6 +437,7 @@ int main(int argc, char *argv[]) {
    wc_data.fdata = fdata;
 
    dprintf("Wordcount: Calling MapReduce Scheduler Wordcount\n");
+   gettimeofday(&start, NULL);
 
    gettimeofday(&starttime,0);
 
@@ -442,16 +445,19 @@ int main(int argc, char *argv[]) {
    
 
    gettimeofday(&endtime,0);
+   secs_used=(endtime.tv_sec - starttime.tv_sec);
+   micros_used= ((secs_used*1000000) + endtime.tv_usec) - (starttime.tv_usec);
 
-   dprintf("Word Count: Completed %ld\n",(endtime.tv_sec - starttime.tv_sec));
+   printf("Word Count: Completed %ld\n",micros_used);
 
    gettimeofday(&starttime,0);
 
    sort_pthreads(words[0], use_len[0], sizeof(wc_count_t), wordcount_cmp);
 
    gettimeofday(&endtime,0);
-
-	dprintf("Word Count: Sorting Completed %ld\n",(endtime.tv_sec - starttime.tv_sec));
+   secs_used=(endtime.tv_sec - starttime.tv_sec);
+   micros_used= ((secs_used*1000000) + endtime.tv_usec) - (starttime.tv_usec);
+	printf("Word Count: Sorting Completed %ld\n",micros_used);
 
    for(i=0; i< DEFAULT_DISP_NUM && i < use_len[0] ; i++)
    {
@@ -463,6 +469,12 @@ int main(int argc, char *argv[]) {
    free(words[0]);
    free(words);
 
+   gettimeofday(&end, NULL);
+
+   secs_used=(end.tv_sec - start.tv_sec);
+   micros_used= ((secs_used*1000000) + end.tv_usec) - (start.tv_usec);
+
+   printf("elapsed time: %ld\n",micros_used);
    CHECK_ERROR(munmap(fdata, finfo.st_size + 1) < 0);
    CHECK_ERROR(close(fd) < 0);
 

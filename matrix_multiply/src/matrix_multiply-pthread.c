@@ -182,6 +182,7 @@ int main(int argc, char *argv[]) {
     int *matrix_A_ptr, *matrix_B_ptr;
 
     struct timeval starttime,endtime;
+    long secs_used,micros_used; 
 
 #ifndef FAULTINJECTION
     srand( (unsigned)time( NULL ) );
@@ -286,9 +287,13 @@ int main(int argc, char *argv[]) {
     matrixmult_splitter(&mm_data);
     
     gettimeofday(&endtime,0);
-#ifndef FAULTINJECTION
+
+    secs_used=(endtime.tv_sec - starttime.tv_sec);
+    micros_used= ((secs_used*1000000) + endtime.tv_usec) - (starttime.tv_usec);
+
+    printf("elapsed time: %ld\n",micros_used);
+
     printf("MatrixMult_pthreads: Multiply Completed time = %ld\n", (endtime.tv_sec - starttime.tv_sec));
-#endif
 
 #ifdef FAULTINJECTION
     for(i=0;i<matrix_len*matrix_len;i++)

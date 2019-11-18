@@ -37,6 +37,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <sys/time.h>
+
 
 // Dmitrii Kuvaiskii: need debug info for fault injection exps
 #ifdef FAULTINJECTION
@@ -102,6 +104,10 @@ int main(int argc, char *argv[])
    pthread_attr_t attr;
    lreg_args* tid_args;
 
+   struct timeval start, end;
+   long secs_used,micros_used; 
+
+   gettimeofday(&start, NULL);
 
    // Make sure a filename is specified
    if (argv[1] == NULL)
@@ -199,5 +205,12 @@ int main(int argc, char *argv[])
    CHECK_ERROR(pthread_attr_destroy(&attr) < 0);
    CHECK_ERROR(munmap(fdata, finfo.st_size + 1) < 0);
    CHECK_ERROR(close(fd) < 0);
+
+   gettimeofday(&end, NULL);
+
+   secs_used=(end.tv_sec - start.tv_sec);
+   micros_used= ((secs_used*1000000) + end.tv_usec) - (start.tv_usec);
+
+   printf("elapsed time: %ld\n",micros_used);
    return 0;
 }

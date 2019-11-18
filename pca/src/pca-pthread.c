@@ -34,6 +34,7 @@
 #include <string.h>
 #include <math.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 // Dmitrii Kuvaiskii: need debug info for fault injection exps
 #ifdef FAULTINJECTION
@@ -132,11 +133,10 @@ void generate_points(int **pts, int rows, int cols)
    {
       for (j=0; j<cols; j++) 
       {
-#ifdef FAULTINJECTION
          pts[i][j] = (i*10+i+j*j+123+j) % grid_size;
-#else
-         pts[i][j] = rand() % grid_size;
-#endif
+         
+         // remove the rand call
+         // pts[i][j] = rand() % grid_size;
       }
    }
 }
@@ -273,7 +273,11 @@ void pthread_cov() {
 int main(int argc, char **argv) {
    
    int i;
-   
+   struct timeval start, end;
+   long secs_used,micros_used; 
+
+   gettimeofday(&start, NULL);
+
    parse_args(argc, argv);   
    
    // Create the matrix to store the points
@@ -313,6 +317,14 @@ int main(int argc, char **argv) {
    free(mean);
    free(cov);
    free(matrix);
+
+   gettimeofday(&end, NULL);
+
+   secs_used=(end.tv_sec - start.tv_sec);
+   micros_used= ((secs_used*1000000) + end.tv_usec) - (start.tv_usec);
+
+   printf("elapsed time: %ld\n",micros_used);
+   
    return 0;
 }
 
