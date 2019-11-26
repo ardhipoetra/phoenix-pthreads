@@ -37,6 +37,8 @@ endif
 include $(PHOENIXHOME)/config/$(CONFIG).mk
 BUILDDIR = build/$(CONFIG)
 
+CFLAGS += -fno-omit-frame-pointer
+
 .PHONY: default all clean
 
 default: all
